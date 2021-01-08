@@ -37,6 +37,7 @@ def view_server_zones(request, dns_server):
 
     try:
         zone_array = this_server.list_zones()
+        print(zone_array)
     except exceptions.ZoneException as exc:
         messages.error(request, "Unable to list server zones. Error: %s" % exc)
     except subprocess.CalledProcessError as err:
