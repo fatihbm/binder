@@ -21,26 +21,13 @@ DB_USER = os.environ.get('DJANGO_DB_USER', None)
 DB_PASSWORD = os.environ.get('DJANGO_DB_PASSWORD', None)
 DB_HOST = os.environ.get('DJANGO_DB_HOST', None)
 
-if all([DB_NAME, DB_USER, DB_PASSWORD, DB_HOST]):
-    logger.info("Using MySQL server for data backend.")
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': DB_NAME,
-            'USER': DB_USER,
-            'PASSWORD': DB_PASSWORD,
-            'HOST': DB_HOST,
-            'PORT': 3306,
-        }
+logger.info("Using Sqlite database at %s" % (os.path.join(SITE_ROOT, 'db') + '/binder.db'))
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(SITE_ROOT, 'db') + '/binder.db',
     }
-else:
-    logger.info("Using Sqlite database at %s" % (os.path.join(SITE_ROOT, 'db') + '/binder.db'))
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(SITE_ROOT, 'db') + '/binder.db',
-        }
-    }
+}
 
 TIME_ZONE = 'America/New_York'
 
@@ -162,6 +149,8 @@ TTL_CHOICES = ((300, "5 minutes"),
 
 RECORD_TYPE_CHOICES = (("A", "A"),
                        ("AAAA", "AAAA"),
+                       ("TXT", "TXT"),
+                       ("MX", "MX"),
                        ("CNAME", "CNAME"))
 
 LOGIN_REDIRECT_URL = '/'
