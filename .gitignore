@@ -6,3 +6,5 @@
 *~
 /binder/secret.txt
 /binder/local_settings.py
+/venv/
+/.idea/
